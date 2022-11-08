@@ -26,103 +26,45 @@ const arrImages = [
 	},
 ]
 
-const eleContainer = document.querySelector('.container-blur');
-const eleSliderThumbs = document.querySelector('.thumbs');
-const eleBtnLeft = document.querySelector('.btn-left');
-const eleBtnRight = document.querySelector('.btn-right');
+
+const eleContainer = document.querySelector(".container-blur") //Appendo al container con innerHtml la mia card
 
 
-for (let i = 0; i < arrImages.length; i++) {
-	 eleContainer.innerHTML += 
-		`
-    	<div class="slider"> 
-		<div class="slider-viewer">
-        <img src="img/${arrImages[i].image} class = "slider-img">
-        <h4>${arrImages[i].title}</h4> 
-        <span>${arrImages[i].text}</span> 
-        </div>
-		<div class="thumbs">
-		<div class="controls">
-			<div class="btn-left">&lt;</div>
-			<div class="btn-right">&gt;</div>
-		</div>
-		</div>
-        </div>
-    	`;
-	
-	eleImg.classList.add('slider-img');
+				   
+for (let i = 0; i < arrImages.length; i++) { 
+	eleContainer.innerHTML +=
+                     `
+					   <div class="slider"> 
+					   <div class="slider-viewer">
+						   <img src="img/${arrImages[i].image}" class = "slider-img currentimage" ">
+						   <div class="info">
+							   <h4>${arrImages[i].title}</h4> 
+							   <span>${arrImages[i].text}</span> 
+						   </div>
+					   </div>
+					   <div class="thumbs">
+						   <div class="controls">
+							   <div class="btn-left">&lt;</div>
+							   <div class="btn-right">&gt;</div>
+						   </div>
+					   </div>
+				   </div>
+				   `
+const eleSlider = document.querySelector(".slider")
+const eleImg = document.querySelector("#currentimage")
+const eleInfo = document.querySelector(".info")
 	if (i === 0) {
-		eleImg.classList.add('active');
-	}
-	eleSliderViewer.append(eleImg);
-
-	// creare i tag immagine che vanno nella sezione .thumbs
-	const eleThumb = document.createElement('img');
-	eleThumb.src == arrImages[i].image;
+		eleSlider.classList.add("active")
+}
+	const eleSliderThumbs = document.querySelector(".thumbs")
+	const eleThumb = document.createElement("img")
+	eleThumb.classList.add("currentimage")
 	eleThumb.classList.add('thumb-img');
+	eleThumb.src = `"img/${arrImages[i].image}"`
 	if (i === 0) {
 		eleThumb.classList.add('active');
 	}
 	eleSliderThumbs.append(eleThumb);
+
+	
 }
-
-
-const listEleImg = document.querySelectorAll('.slider-img'); // non e' un array ma qualcosa di simile
-const listThumbs = document.querySelectorAll('.thumb-img');
-
-let activeIndex = 0;
-document.body.style.backgroundImage = `url('${arrImages[activeIndex].image}')`;
-document.body.style.backgroundSize = 'cover';
-
-// aggiungere gli event listeners ai due bottoni
-eleBtnRight.addEventListener('click', function () {
-	// togliere la classe active dall'elemento attivo corrente
-	listEleImg[activeIndex].classList.remove('active');
-	listThumbs[activeIndex].classList.remove('active');
-
-	// incrementare l'active index con reset per slider infinito
-	/*
-	if (activeIndex === listEleImg.length - 1) {
-		activeIndex = 0;
-	} else {
-		activeIndex++;
-	}
-	*/
-
-	activeIndex++;
-	if (activeIndex === listEleImg.length) {
-		activeIndex = 0;
-	}
-
-	// aggiungere la classe active all'elemento successivo
-	listEleImg[activeIndex].classList.add('active');
-	listThumbs[activeIndex].classList.add('active');
-	document.body.style.backgroundImage = `url('${arrImages[activeIndex].image}')`;
-	document.body.style.backgroundSize = 'cover';
-});
-
-eleBtnLeft.addEventListener('click', function () {
-	// togliere la classe active dall'elemento attivo corrente
-	listEleImg[activeIndex].classList.remove('active');
-	listThumbs[activeIndex].classList.remove('active');
-
-	// decrementare l'active index con reset per slider infinito
-	/*
-	if (activeIndex === 0) {
-		activeIndex = listEleImg.length - 1;
-	} else {
-		activeIndex--;
-	}
-	*/
-
-	if (activeIndex === 0) {
-		activeIndex = listEleImg.length;
-	}
-	activeIndex--;
-
-	// aggiungere la classe active all'elemento successivo
-	listEleImg[activeIndex].classList.add('active');
-	listThumbs[activeIndex].classList.add('active');
-	document.body.style.backgroundImage = `url('${arrImages[activeIndex].image}')`;
-	document.body.style.backgroundSize = 'cover';
-});
